@@ -1,14 +1,9 @@
 # bower-install
 
-Inject your dependencies right into your HTML.
+Inject your dependencies right into your HTML from Grunt.
 
 ## Getting Started
 Install the module with: `npm install bower-install`
-
-```javascript
-var bower_install = require('bower-install');
-bower_install.awesome(); // "awesome"
-```
 
 ## Documentation
 _(Coming soon)_
