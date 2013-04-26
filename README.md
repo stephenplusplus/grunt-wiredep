@@ -3,7 +3,45 @@
 Inject your dependencies right into your HTML from Grunt.
 
 ## Getting Started
-Install the module with: `npm install bower-install`
+Install the module:
+
+```
+npm install bower-install
+```
+
+Include the task in your Gruntfile:
+
+```js
+grunt.loadNpmTasks('grunt-bower-install');
+```
+
+Create a config block within your Gruntfile:
+
+```js
+'bower-install': {
+  // Point to your index file.
+  index: 'app/index.html',
+
+  // Optional:
+  // If your scripts shouldn't contain a certain
+  // portion of a url, it can be excluded.
+  ignorePath: 'app/'
+}
+```
+
+When installing a Bower component:
+
+```
+grunt bower-install:codecode
+```
+
+When uninstalling a Bower component:
+
+```
+grunt bower-install:uninstall:codecode
+```
+
+You're in business!
 
 ## Documentation
 _(Coming soon)_
