@@ -1,4 +1,4 @@
-# bower-install
+# grunt-bower-install
 
 Inject your dependencies right into your HTML from Grunt.
 
