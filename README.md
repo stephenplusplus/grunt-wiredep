@@ -6,7 +6,7 @@ Inject your dependencies right into your HTML from Grunt.
 Install the module:
 
 ```
-npm install bower-install
+npm install grunt-bower-install
 ```
 
 Include the task in your Gruntfile:
