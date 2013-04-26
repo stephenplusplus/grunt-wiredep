@@ -41,6 +41,13 @@ When uninstalling a Bower component:
 grunt bower-install:uninstall:codecode
 ```
 
+Pop this in your HTML file:
+
+```html
+<!-- bower -->
+<!-- endbower -->
+```
+
 You're in business!
 
 ## Documentation
