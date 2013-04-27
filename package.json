@@ -1,8 +1,8 @@
 {
   "name": "grunt-bower-install",
   "description": "Inject your Bower dependencies right into your HTML from Grunt.",
-  "version": "0.1.5",
-  "homepage": "https://github.com/stephenplusplus/grunt-bower-install",
+  "version": "0.1.6",
+  "homepage": "http://stephenplusplus.github.io/grunt-bower-install",
   "author": {
     "name": "Stephen Sawchuk",
     "email": "sawchuk@gmail.com",
@@ -24,12 +24,10 @@
   "bugs": {
     "url": "https://github.com/stephenplusplus/grunt-bower-install/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/stephenplusplus/grunt-bower-install/blob/master/LICENSE-MIT"
-    }
-  ],
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/stephenplusplus/grunt-bower-install/blob/master/LICENSE-MIT"
+  }],
   "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0"

@@ -21,7 +21,28 @@ module.exports = function (grunt) {
     messages.forEach(function (message) {
       grunt.log.writeln();
       grunt.log.warn(message);
-    })
+    });
+  };
+
+
+  /**
+   * When .bowerrc doesn't exist, we'll try some other common locations.
+   *
+   * @return {string|undefined}
+   */
+  var findComponentDirectory = function () {
+    var directory;
+
+    ['bower_components', 'components', 'app/components'].forEach(function (dir) {
+      if (grunt.util.kindOf(directory) !== 'string' && grunt.file.isDir(dir)) {
+        directory = dir;
+      }
+    });
+
+    return directory || throwSomeWarnings([
+      'Sorry, we can\'t find where you keep your bower components.',
+      'Try creating a `.bowerrc` file in the root of your project\'s directory, then try again.'
+    ]);
   };
 
 
@@ -30,15 +51,15 @@ module.exports = function (grunt) {
    *
    * @return {array}
    */
-  var stripDependencies = function (dependencies) {
+  var stripDependencies = function (directory, dependencies) {
     var mains = [];
 
     grunt.util._.each(dependencies, function (version, dependency) {
-      var directory = grunt.file.readJSON('.bowerrc').directory + '/' + dependency;
+      var dir = directory + '/' + dependency;
 
-      if (grunt.file.isDir(directory)) {
+      if (grunt.file.isDir(dir)) {
         // cool, we have this component already!
-        mains.push(findMains(directory, { dependencies: false }));
+        mains.push(findMains(dir, { dependencies: false }));
       } else {
         // let's try to bower install it. cause why not.
         grunt.task.run('bower-install:' + dependency);
@@ -87,13 +108,13 @@ module.exports = function (grunt) {
 
       // should we dig for dependencies?
       if (options.dependencies) {
-        mains.push(stripDependencies(configFile.dependencies));
+        mains.push(stripDependencies(directory, configFile.dependencies));
       }
 
       mains.push(path.join(directory, configFile.main));
 
       return grunt.util._.flatten(mains);
-    } else {
+    } else if (!options.silent) {
       // couldn't find the main file :(
       return throwSomeWarnings([
         'Well, we were able to install this component, but we couldn\'t find the primary file for this component.',
@@ -106,26 +127,26 @@ module.exports = function (grunt) {
   /**
    * Inserts a <script></script> with the component.
    *
-   * @param {string} index        The HTML file
+   * @param {string} html         The HTML
    * @param {string} pathToInject Path to the main file
    * @return {string}
    */
-  var insertScriptPath = function (index, pathToInject) {
+  var insertScriptPath = function (html, pathToInject) {
     pathToInject = '<script src="' + pathToInject.replace(grunt.config.data['bower-install'].ignorePath, '') + '"></script>';
 
-    if (index.indexOf(pathToInject) > -1) {
+    if (html.indexOf(pathToInject) > -1) {
       // the script path already exists in the html file.
-      return index;
+      return html;
     }
 
     var newIndex;
 
-    index.replace(/<!--\s*endbower\s*-->/, function (match, position) {
+    html.replace(/<!--\s*endbower\s*-->/, function (match, position) {
       newIndex
-        = index.substr(0, position)
+        = html.substr(0, position)
         + pathToInject
-        + (index.match(/(\s*|\t*)<!--\s*endbower\s*-->/)[1] || '')
-        + index.substr(position);
+        + (html.match(/(\s*|\t*)<!--\s*endbower\s*-->/)[1] || '')
+        + html.substr(position);
     });
 
     // the script was injected! pass it back.
@@ -136,19 +157,21 @@ module.exports = function (grunt) {
   /**
    * Removes the <script></script> with the component.
    *
-   * @param {string} index        The HTML file
+   * @param {string} html         The HTML
    * @param {string} pathToRemove Path to the main file
    * @return {string}
    */
-  var removeScriptPath = function (index, pathToRemove) {
+  var removeScriptPath = function (html, pathToRemove) {
     if (grunt.config.data['bower-install'].ignorePath) {
       pathToRemove = pathToRemove.replace(grunt.config.data['bower-install'].ignorePath, '');
     }
 
-    if (index.indexOf(pathToRemove) === -1) {
+    if (html.indexOf(pathToRemove) === -1) {
       // the script path isn't in the html file :-?
-      return index;
+      return html;
     }
+
+    html = html.replace(pathToRemove, 'xxx');
 
     var script;
 
@@ -156,34 +179,34 @@ module.exports = function (grunt) {
     // think of a better way to check if the path is a file or folder.
     if (pathToRemove.substr(-3) !== '.js') {
       // no specific file name to search for.
-      script = new RegExp('<script src="' + pathToRemove + '.*\.js"><\/script>(\\s*|\\t*)', 'g');
+      script = new RegExp('<script src="xxx.*\\.js"><\/script>(\\s*|\\t*)', 'g');
     } else {
       // cool, this thing is a file, and its gotta go.
-      script = new RegExp('<script src="' + pathToRemove + '"><\/script>(\\s*|\\t*)');
+      script = new RegExp('<script src="xxx"><\/script>(\\s*|\\t*)');
     }
 
     // the script was removed! pass it back.
-    return index.replace(script, '');
+    return html.replace(script, '');
   };
 
 
   /**
    * Register a bower install callback.
    *
-   * @param {object} config directory, index, other config options
+   * @param {object} config .directory, .htmlFile, other options
    * @return {function}
    */
   var installDependency = function (config) {
     return function (error, result, code) {
       var pathsToInject = findMains(config.directory, { dependencies: true });
-      var newIndex;
+      var newHtmlFile;
 
       if (grunt.util.kindOf(pathsToInject) === 'array') {
-        newIndex = pathsToInject.reduce(insertScriptPath, config.index);
+        newHtmlFile = pathsToInject.reduce(insertScriptPath, config.htmlFile);
       }
 
-      if (grunt.util.kindOf(newIndex) === 'string') {
-        grunt.file.write(grunt.config.data['bower-install'].index, newIndex);
+      if (grunt.util.kindOf(newHtmlFile) === 'string') {
+        grunt.file.write(grunt.config.data['bower-install'].html, newHtmlFile);
       }
 
       config.done(!code);
@@ -224,17 +247,20 @@ module.exports = function (grunt) {
         return;
       }
 
+      // no conflicting dependency junk. let's just delete this bad boy and get
+      // outta here.
+
       grunt.log.write(result.toString());
 
       var pathsToRemove = config.mains;
-      var newIndex;
+      var newHtmlFile;
 
       if (grunt.util.kindOf(pathsToRemove) === 'array') {
-        newIndex = pathsToRemove.reduce(removeScriptPath, config.index);
+        newHtmlFile = pathsToRemove.reduce(removeScriptPath, config.htmlFile);
       }
 
-      if (grunt.util.kindOf(newIndex) === 'string') {
-        grunt.file.write(grunt.config.data['bower-install'].index, newIndex);
+      if (grunt.util.kindOf(newHtmlFile) === 'string') {
+        grunt.file.write(grunt.config.data['bower-install'].html, newHtmlFile);
       }
 
       config.done(!code);
@@ -245,24 +271,32 @@ module.exports = function (grunt) {
   grunt.registerTask('bower-install', 'Install a dependency.', function () {
     // if a path to an html file isn't configured, there's not much point to
     // this plugin. :(
-    grunt.config.requires(['bower-install', 'index']);
+    grunt.config.requires(['bower-install', 'html']);
 
     var uninstalling = arguments[0] === 'uninstall' && arguments[1];
 
     var config = {};
     config.done = this.async();
-    config.dependency = uninstalling? arguments[1] : arguments[0];
-    config.directory = path.join(grunt.file.readJSON('.bowerrc').directory, config.dependency);
-    config.index = grunt.file.read(grunt.config.data['bower-install'].index);
+    config.dependency = uninstalling ? arguments[1] : arguments[0];
 
-    if ( !grunt.file.exists(grunt.config.data['bower-install'].index)
+    if (grunt.file.exists('.bowerrc')) {
+      config.directory = path.join(grunt.file.readJSON('.bowerrc').directory, config.dependency);
+    } else {
+      config.directory = path.join(findComponentDirectory(), config.dependency);
+    }
+
+    config.htmlFile = grunt.file.read(grunt.config.data['bower-install'].html);
+
+    if ( !grunt.file.exists(grunt.config.data['bower-install'].html)
       || !config.dependency
       || !config.directory) {
-      return;
+      return throwSomeWarnings([
+        'Hmm, we had some problems.\nMake sure to check out the GitHub page for help:\nhttp://github.com/stephenplusplus/grunt-bower-install'
+      ]);
     }
 
     if (uninstalling && grunt.file.isDir(config.directory)) {
-      config.mains = findMains(config.directory, { dependencies: false });
+      config.mains = findMains(config.directory, { dependencies: false, silent: true });
     } else if (uninstalling) {
       config.mains = [config.directory];
     }
