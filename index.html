@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>sample apple.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="row">
+    <div class="twelve columns">
+      <hr>
+      <h1>sample app...le.</h1>
+      <hr>
+      <em>
+        how to get started with grunt-bower-install.
+      </em>
+      <hr>
+
+
+      <h3>first.</h3>
+      <hr>
+      <p>
+        To use <a href="http://bower.io">Bower</a> for dependencies, include a comment block in your HTML file:
+      </p>
+      <pre>
+  &lt!-- bower -->
+  &lt!-- endbower -->
+      </pre>
+
+
+      <hr><hr>
+      <h3>then.</h3>
+      <hr>
+      <p>
+        <a href="http://gruntjs.com">Grunt</a> and <a href="http://github.com/stephenplusplus/grunt-bower-install">grunt-bower-install</a> will do the rest! Grab 'em!
+      </p>
+      <pre>
+  npm install grunt-bower-install --save-dev
+      </pre>
+
+
+      <hr><hr>
+      <h3>now.</h3>
+      <hr>
+      <p>
+        Flip over to your Gruntfile, and add in the following:
+      </p>
+      <pre>
+  grunt.initConfig({
+    // ...
+    'bower-install': {
+      index: 'index.html'
+    }
+  });
+      </pre>
+
+
+      <hr><hr>
+      <h3>so.</h3>
+      <hr>
+      <p>
+        Let's say your app needed jQuery to help it reach maximum awesomeness.
+      </p>
+      <p>
+        Just go over to your terminal, and slap:
+      </p>
+      <pre>
+  grunt bower-install:jquery
+      </pre>
+
+
+      <hr><hr>
+      <h3>finally.</h3>
+      <hr>
+      <p>
+        Go check out your HTML file. It should look like:
+      </p>
+      <pre>
+  &lt;!-- bower -->
+  &lt;script src="components/jquery/jquery.js">&lt;/script>
+  &lt;!-- endbower -->
+      </pre>
+
+
+      <hr><hr>
+      <h2>scene.</h2>
+      <hr>
+      <p>
+        There is a lot of room to make this plug-in better. If you have any <a href="https://github.com/stephenplusplus/grunt-bower-install/issues">problems, ideas,</a> or <a href="https://github.com/stephenplusplus/grunt-bower-install/pulls">solutions</a>, please share!
+      </p>
+    </div>
+  </section>
+  <a href="https://github.com/stephenplusplus/grunt-bower-install">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
+  </a>
+  <!-- bower -->
+  <script src="components/jquery/jquery.js"></script>
+  <!-- endbower -->
+</body>
+</html>
