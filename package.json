@@ -3,6 +3,6 @@
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
-    "grunt-bower-install": "~0.1.5"
+    "grunt-bower-install": "~0.1.6"
   }
 }
