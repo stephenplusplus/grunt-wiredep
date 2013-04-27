@@ -42,7 +42,7 @@ grunt bower-install:jquery
 You're in business!
 ```html
 <!-- bower -->
-<script src="components/jquery/jquery.js"></script>
+<script src="bower_components/jquery/jquery.js"></script>
 <!-- endbower -->
 ```
 
@@ -53,7 +53,7 @@ grunt bower-install:uninstall:jquery
 
 ## Examples
 A simple sample apple:
-[website](http://stephenplusplus.github.io/grunt-bower-install) | [github](http://github.com/stephenplusplus/grunt-bower-install)
+[website](http://stephenplusplus.github.io/grunt-bower-install) | [github](https://github.com/stephenplusplus/grunt-bower-install/tree/gh-pages)
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
