@@ -9,21 +9,23 @@
 var grunt = require('grunt');
 var path = require('path');
 
-var _ = require('./helpers')._;
+var _ = grunt.util._;
 var is = require('./helpers').is;
-var isFile = require('./helpers').isFile;
+var isFile = grunt.file.isFile;
 
-var components;
-var directory;
-var globalDependencies;
 
-var collectionOfWarnings = [];
-
-var findComponentConfigFile = function (component) {
+/**
+ * Find the component's JSON configuration file.
+ *
+ * @param  {object} BI         the global configuration object
+ * @param  {string} component  the name of the component to dig for
+ * @return {object} the component's config file
+ */
+var findComponentConfigFile = function (BI, component) {
   var componentConfigFile;
 
   _.each(['bower.json', 'component.json', 'package.json'], function (configFile) {
-    configFile = path.join(directory, component, configFile);
+    configFile = path.join(BI.get('directory'), component, configFile);
 
     if (!is(componentConfigFile, 'object') && isFile(configFile)) {
       componentConfigFile = grunt.file.readJSON(configFile);
@@ -33,14 +35,29 @@ var findComponentConfigFile = function (component) {
   return componentConfigFile;
 };
 
-var gatherInfo = function (options) {
+
+/**
+ * Store the information our prioritizer will need to determine rank.
+ *
+ * @param  {object} BI       the global configuration object
+ * @param  {object} options  optional parameters
+ * @return {function} the iterator function, called on every component
+ */
+var gatherInfo = function (BI, options) {
+  /**
+   * The iterator function, which is called on each component.
+   *
+   * @param  {string} version    the version of the component
+   * @param  {string} component  the name of the component
+   * @return {undefined}
+   */
   return function (version, component) {
-    var dep = globalDependencies.get(component) || {
+    var dep = BI.get('global-dependencies').get(component) || {
       main: '',
       dependencies: {}
     };
 
-    var componentConfigFile = findComponentConfigFile(component);
+    var componentConfigFile = findComponentConfigFile(BI, component);
 
     if (is(dep.dependents, 'number')) {
       dep.dependents += 1;
@@ -49,16 +66,21 @@ var gatherInfo = function (options) {
     }
 
     if (is(componentConfigFile.main, 'string')) {
-      dep.main = path.join(directory, component, componentConfigFile.main);
+      dep.main = path.join(BI.get('directory'), component, componentConfigFile.main);
     } else if (is(componentConfigFile.main, 'array')) {
-      dep.main = path.join(directory, component, componentConfigFile.main[0]);
+      dep.main = path.join(BI.get('directory'), component, componentConfigFile.main[0]);
     } else {
-      collectionOfWarnings.push(component + ' has no main file!');
+      var warnings = BI.get('warnings');
+
+      warnings.push(component + ' was not injected in your HTML.');
+      warnings.push('Please go take a look in "' + path.join(BI.get('directory'), component) + '" for the file you need, then manually include it in your HTML file **outside** of the <!-- bower --> block.');
+
+      BI.set('warnings', warnings);
       return;
     }
 
     if (options.nestedDependencies && componentConfigFile.dependencies) {
-      var gatherInfoAgain = gatherInfo({ nestedDependencies: false });
+      var gatherInfoAgain = gatherInfo(BI, { nestedDependencies: false });
 
       dep.dependencies = componentConfigFile.dependencies;
 
@@ -67,12 +89,19 @@ var gatherInfo = function (options) {
       });
     }
 
-    globalDependencies.set(component, dep);
+    BI.get('global-dependencies').set(component, dep);
   }
 };
 
-var prioritizeDependencies = function () {
-  var grouped = _.groupBy(globalDependencies.get(), 'dependents');
+
+/**
+ * Sort the dependencies in the order we can best determine they're needed.
+ *
+ * @param  {object} BI  the global configuration object
+ * @return {array} the sorted items of 'path/to/main/files.js'
+ */
+var prioritizeDependencies = function (BI) {
+  var grouped = _.groupBy(BI.get('global-dependencies').get(), 'dependents');
   var sorted = [];
 
   _.each(grouped, function (dependencies, index) {
@@ -88,20 +117,17 @@ var prioritizeDependencies = function () {
   return sorted.reverse();
 };
 
-var refreshBI = function (BI) {
-  directory = BI.get('directory');
-  components = BI.get('bower.json').dependencies;
-  globalDependencies = BI.get('global-dependencies');
-};
 
-module.exports.init = function (BI) {
-  refreshBI(BI);
+/**
+ * Detect dependencies of the components from `bower.json`.
+ *
+ * @param  {object} BI the global configuration object.
+ * @return {object} BI
+ */
+module.exports.detect = function (BI) {
+  _.each(BI.get('bower.json').dependencies, gatherInfo(BI, { nestedDependencies: true }));
 
-  _.each(components, gatherInfo({ nestedDependencies: true }));
-
-  refreshBI(BI);
-
-  BI.set('global-dependencies-sorted', prioritizeDependencies());
+  BI.set('global-dependencies-sorted', prioritizeDependencies(BI));
 
   return BI;
 };
