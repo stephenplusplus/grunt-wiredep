@@ -70,6 +70,7 @@ var gatherInfo = function (BI, options) {
     } else if (is(componentConfigFile.main, 'array')) {
       dep.main = path.join(BI.get('directory'), component, componentConfigFile.main[0]);
     } else {
+      // can't find the main file. this config file is useless!
       var warnings = BI.get('warnings');
 
       warnings.push(component + ' was not injected in your HTML.');

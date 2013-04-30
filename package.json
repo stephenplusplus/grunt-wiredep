@@ -1,7 +1,7 @@
 {
   "name": "grunt-bower-install",
   "description": "Inject your Bower dependencies right into your HTML from Grunt.",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "homepage": "http://stephenplusplus.github.io/grunt-bower-install",
   "author": {
     "name": "Stephen Sawchuk",
@@ -37,8 +37,7 @@
   },
   "dependencies": {
     "grunt": "~0.4.1",
-    "bower": "~0.9.0",
-    "prompt": "~0.2.9"
+    "bower": "~0.9.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.1",

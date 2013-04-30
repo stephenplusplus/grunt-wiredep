@@ -7,7 +7,7 @@
  */
 
 var grunt = require('grunt');
-var bowerCommand = require('./grunt-bower-command');
+var bowerCommand = require('./bower-command');
 var helpers = require('./helpers');
 
 

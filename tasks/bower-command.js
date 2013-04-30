@@ -1,5 +1,5 @@
 /*
- * grunt-bower-command.js
+ * bower-command.js
  * https://github.com/stephenplusplus/bower-install
  *
  * Copyright (c) 2013 Stephen Sawchuk
