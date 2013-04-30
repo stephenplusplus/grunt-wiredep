@@ -16,7 +16,31 @@
       </em>
       <hr>
 
+      <h2>what this is.</h2>
+      <hr>
+      <p>
+        <a href="http://gruntjs.com">Grunt</a> is great.
+      </p>
+      <p>
+        <a href="http://bower.io">Bower</a> is great.
+      </p>
+      <p>
+        <strong>And now they work great together.</strong>
+      </p>
+      <p>
+        <code>grunt-bower-install</code> is a Grunt plug-in, which finds your components and injects them directly into the HTML file you specify.
+      </p>
+      <p>
+        Whether you're already using Bower and Grunt, or new to both, <code>grunt-bower-install</code> will be easy to plug in, as you can see in the steps below.
+      </p>
+      <p>
+        <strong><em>do note:</em></strong>
+        <em>
+          Bower is still a young little birdy, so things are changing rapidly. Authors of Bower components must follow certain conventions and best practices in order for this plug-in to be as accurate as possible. It's not a perfect world out there, so needless to say, some Bower components may not work as well as others.
+        </em>
+      </p>
 
+      <hr><hr>
       <h3>first.</h3>
       <hr>
       <p>
@@ -35,7 +59,7 @@
         <a href="http://gruntjs.com">Grunt</a> and <a href="http://github.com/stephenplusplus/grunt-bower-install">grunt-bower-install</a> will do the rest! Grab 'em!
       </p>
       <pre>
-  npm install grunt-bower-install --save-dev
+  npm install <code>grunt-bower-install</code> --save-dev
       </pre>
 
 
@@ -47,10 +71,9 @@
       </p>
       <pre>
   grunt.initConfig({
-    // ...
-    'bower-install': {
-      html: 'index.html'
-    }
+    <code>'bower-install': {</code>
+      html: 'index.html' // point to your HTML file.
+    <code>}</code>
   });
       </pre>
 
@@ -65,7 +88,7 @@
         Just go over to your terminal, and slap:
       </p>
       <pre>
-  grunt bower-install:jquery
+  grunt <code>bower-install:jquery</code>
       </pre>
 
 
@@ -77,7 +100,7 @@
       </p>
       <pre>
   &lt;!-- bower -->
-  &lt;script src="bower_components/jquery/jquery.js">&lt;/script>
+  &lt;script src="<code>bower_components/jquery/jquery.js</code>">&lt;/script>
   &lt;!-- endbower -->
       </pre>
 
