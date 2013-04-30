@@ -1,23 +1,21 @@
 /*
- * grunt-bower-install.js
+ * grunt-bower-uninstall.js
  * https://github.com/stephenplusplus/bower-install
  *
  * Copyright (c) 2013 Stephen Sawchuk
  * Licensed under the MIT license.
  */
 
-var grunt = require('grunt');
 var bower = require('bower').commands;
+var grunt = require('grunt');
 
 module.exports.init = function (BI) {
   bower
-    .install([BI.get('component')], { save: true })
+    .uninstall([BI.get('component')], { save: true })
     .on('data', function () {
-      grunt.log.write(arguments[0].toString());
+      grunt.log.writeln(arguments[0].toString());
     })
     .on('end', function () {
-      require('./grunt-bower-install-all').init(BI, { silent: true });
+      require('./grunt-bower-install-all').init(BI);
     });
-
-  return BI;
 };
