@@ -1,6 +1,19 @@
 # grunt-bower-install
 
-Inject your Bower dependencies right into your HTML from Grunt.
+> Inject your Bower dependencies right into your HTML from Grunt.
+
+## what this is.
+[Grunt](http://gruntjs.com) is great.
+
+[Bower](http://bower.io) is great.
+
+**And now they work great together.**
+
+`grunt-bower-install` is a Grunt plug-in, which finds your components and injects them directly into the HTML file you specify.
+
+Whether you're already using Bower and Grunt, or new to both, `grunt-bower-install` will be easy to plug in, as you can see in the steps below.
+
+_**do note**: Bower is still a young little birdy, so things are changing rapidly. Authors of Bower components must follow certain conventions and best practices in order for this plug-in to be as accurate as possible. It's not a perfect world out there, so needless to say, some Bower components may not work as well as others._
 
 ## Getting Started
 
@@ -48,7 +61,7 @@ You're in business!
 
 If you want to uninstall a Bower component:
 ```
-grunt bower-install:uninstall:jquery
+grunt bower-uninstall:jquery
 ```
 
 ## Examples
