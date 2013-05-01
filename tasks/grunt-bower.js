@@ -37,6 +37,7 @@ var findBowerJSON = function (BI) {
   return bowerJSON;
 };
 
+
 /**
  * Bootstraps the task by setting some config properties, and making sure we
  * have everything we need.

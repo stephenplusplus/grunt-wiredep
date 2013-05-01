@@ -66,7 +66,16 @@ module.exports.warn = function (messages) {
     ]);
   }
 
+  // to prevent duplicate messages, we'll store what we've already presented.
+  var displayedMessages = {};
+
   messages.forEach(function (message, index) {
+    if (displayedMessages[message]) {
+      return;
+    }
+
+    displayedMessages[message] = true;
+
     if (index % 2 === 0) {
       // a heading.
       grunt.log.writeln();
