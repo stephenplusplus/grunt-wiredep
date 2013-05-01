@@ -9,7 +9,7 @@
 var grunt = require('grunt');
 var bower = require('bower').commands;
 
-var BowerInstall;
+var BI;
 
 
 var defaults = {
@@ -32,8 +32,8 @@ var defaults = {
    * @return {undefined}
    */
   end: function () {
-    BowerInstall.get('done')();
-    BowerInstall.get('grunt').task.run('bower-install:--silent');
+    BI.get('done')();
+    BI.get('grunt').task.run('bower-install:--silent');
   }
 };
 
@@ -41,13 +41,13 @@ var defaults = {
 /**
  * Executes a Bower command using the Bower api.
  *
- * @param  {object} BI       the global configuration object
- * @param  {object} options  properties and methods to control the execution of
- *                           bower
+ * @param  {object} BowerInstall  the global configuration object
+ * @param  {object} options       properties and methods to control the
+ *                                execution of bower
  * @return {undefined}
  */
-module.exports.execute = function (BI, options) {
-  BowerInstall = BI;
+module.exports.execute = function (BowerInstall, options) {
+  BI = BowerInstall;
 
   var bowerExec = bower[options.command];
 

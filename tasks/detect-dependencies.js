@@ -35,6 +35,35 @@ var findComponentConfigFile = function (BI, component) {
   return componentConfigFile;
 };
 
+/**
+ * Find the main script the component refers to. It's not always main :(
+ *
+ * @param  {object} BI            the global configuration object
+ * @param  {string} component     the name of the component to dig for
+ * @param  {componentConfigFile}  the component's config file
+ * @return {string} the path to the component's primary script
+ */
+var findMainScript = function (BI, component, componentConfigFile) {
+  var scriptPath;
+
+  if (is(componentConfigFile.main, 'string')) {
+    // start by looking for what every component should have: config.main
+    scriptPath = componentConfigFile.main;
+  } else if (is(componentConfigFile.main, 'array')) {
+    // in case config.main is an array, grab the first one (grab all instead?)
+    scriptPath = componentConfigFile.main[0];
+  } else if (is(componentConfigFile.scripts, 'array')) {
+    // still haven't found it. is it stored in config.scripts, then?
+    scriptPath = componentConfigFile.scripts[0];
+  }
+
+  if (is(scriptPath, 'string')) {
+    scriptPath = path.join(BI.get('directory'), component, scriptPath);
+  }
+
+  return scriptPath;
+};
+
 
 /**
  * Store the information our prioritizer will need to determine rank.
@@ -65,11 +94,9 @@ var gatherInfo = function (BI, options) {
       dep.dependents = 1;
     }
 
-    if (is(componentConfigFile.main, 'string')) {
-      dep.main = path.join(BI.get('directory'), component, componentConfigFile.main);
-    } else if (is(componentConfigFile.main, 'array')) {
-      dep.main = path.join(BI.get('directory'), component, componentConfigFile.main[0]);
-    } else {
+    dep.main = findMainScript(BI, component, componentConfigFile);
+
+    if (!is(dep.main, 'string')) {
       // can't find the main file. this config file is useless!
       var warnings = BI.get('warnings');
 

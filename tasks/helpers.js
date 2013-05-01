@@ -60,24 +60,20 @@ module.exports.createStore = function () {
  * @return {undefined}
  */
 module.exports.warn = function (messages) {
-  if (messages.length === 0) {
-    return grunt.log.warn([
-      'Hmm, we had some problems.\nMake sure to check out the GitHub page for help:\nhttp://github.com/stephenplusplus/grunt-bower-install'
+  if (!messages) {
+    return grunt.fail.fatal([
+      '\n\nHmm, we had some problems.\nMake sure to check out the GitHub page for help:\n' + 'http://github.com/stephenplusplus/grunt-bower-install'.cyan
     ]);
   }
 
   messages.forEach(function (message, index) {
     if (index % 2 === 0) {
       // a heading.
-      message = grunt.log.wordlist([message], { color: 'yellow' });
-
       grunt.log.writeln();
-      grunt.log.warn(message);
+      grunt.log.warn(message.yellow);
     } else {
       // the sub-text to the heading.
-      message = grunt.log.wordlist([message]);
-
-      grunt.log.writeln(message);
+      grunt.log.writeln(message.cyan);
     }
   });
 };

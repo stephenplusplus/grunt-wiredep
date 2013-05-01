@@ -12,6 +12,32 @@ var helpers = require('./helpers');
 
 
 /**
+ * Developers may still be using "component.json". That's fine, we can use that
+ * just the same. But if they are, we'll let them know it's deprecated.
+ *
+ * @param  {object} BI  the global configuration object
+ * @return {object} bower's .json configuration object
+ */
+var findBowerJSON = function (BI) {
+  var bowerJSON;
+
+  grunt.util._.each(['bower.json', 'component.json'], function (configFile) {
+    if (!helpers.is(bowerJSON, 'object') && grunt.file.isFile(configFile)) {
+      bowerJSON = grunt.file.readJSON(configFile);
+
+      if (configFile !== 'bower.json') {
+        grunt.log.writeln();
+        grunt.log.warn(configFile.yellow + ' is deprecated.'.yellow);
+        grunt.log.writeln('Your dependencies are going to be managed in "bower.json" going forward. Everything will carry over. :)'.cyan);
+        grunt.log.writeln();
+      }
+    }
+  });
+
+  return bowerJSON;
+};
+
+/**
  * Bootstraps the task by setting some config properties, and making sure we
  * have everything we need.
  *
@@ -29,14 +55,14 @@ var bootstrap = function (task, grunt) {
     ('grunt', grunt)
     ('task', task)
     ('done', done)
+    ('warnings', [])
     ('global-dependencies', helpers.createStore())
     ('.bowerrc', grunt.file.readJSON('.bowerrc'))
-    ('bower.json', grunt.file.readJSON('bower.json'))
+    ('bower.json', findBowerJSON(store))
     ('ignore-path', grunt.config.data['bower-install'].ignorePath)
     ('html-file', grunt.config.data['bower-install'].html)
     ('html', grunt.file.read(grunt.config.data['bower-install'].html))
     ('directory', store.get('.bowerrc').directory || 'bower_components')
-    ('warnings', [])
 
   return store;
 };
@@ -110,7 +136,7 @@ var uninstallComponent = function (BI, component, options) {
         // no conflicts. log as usual.
         grunt.log.write(message);
       } else {
-        grunt.log.warn('Basically, if you remove ' + component + ' there\'ll be problems.');
+        grunt.log.warn('Basically, if you remove ' + component + ', there\'ll be problems.');
       }
     }
   });

@@ -20,9 +20,9 @@ var block = /((\s*|\t*)<!--\s*bower\s*-->)(\n|.)*(<!--\s*endbower\s*-->)/i;
  *
  * @param  {array}  match       strings that were matched
  * @param  {string} startBlock  the opening <!-- bower --> comment
- * @param  {[type]} spacing     the type and size of indentation
- * @param  {[type]} oldScripts  the old block of scripts we'll remove
- * @param  {[type]} endBlock    the closing <!-- endbower --> comment
+ * @param  {string} spacing     the type and size of indentation
+ * @param  {string} oldScripts  the old block of scripts we'll remove
+ * @param  {string} endBlock    the closing <!-- endbower --> comment
  * @return {string} the new html
  */
 var replace = function (match, startBlock, spacing, oldScripts, endBlock) {
