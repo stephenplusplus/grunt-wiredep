@@ -7,7 +7,6 @@
  */
 
 var grunt = require('grunt');
-var bower = require('bower').commands;
 
 var globalDependenciesSorted;
 var ignorePath;
