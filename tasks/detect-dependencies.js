@@ -24,7 +24,7 @@ var isFile = grunt.file.isFile;
 var findComponentConfigFile = function (BI, component) {
   var componentConfigFile;
 
-  _.each(['bower.json', 'component.json', 'package.json'], function (configFile) {
+  _.each(['.bower.json', 'bower.json', 'component.json', 'package.json'], function (configFile) {
     configFile = path.join(BI.get('directory'), component, configFile);
 
     if (!is(componentConfigFile, 'object') && isFile(configFile)) {
