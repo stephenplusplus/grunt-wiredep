@@ -7,7 +7,7 @@
  */
 
 var grunt = require('grunt');
-var helpers = require('./helpers');
+var helpers = require('../lib/helpers');
 
 
 /**
@@ -71,7 +71,7 @@ module.exports = function (grunt) {
   // bower-install task initialization.
   grunt.registerTask('bower-install', 'Inject all components in your HTML file.', function (component) {
     var BI = bootstrap(this, grunt);
-    require('./detect-dependencies').detect(BI);
-    require('./inject-dependencies').inject(BI);
+    require('../lib/detect-dependencies').detect(BI);
+    require('../lib/inject-dependencies').inject(BI);
   });
 };
