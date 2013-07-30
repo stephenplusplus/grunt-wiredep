@@ -43,9 +43,9 @@ Create a config block within your Gruntfile:
 }
 ```
 
-Pop this in your HTML file:
+For JavaScript dependencies, pop this in your HTML file:
 ```html
-<!-- bower -->
+<!-- bower:js -->
 <!-- endbower -->
 ```
 
