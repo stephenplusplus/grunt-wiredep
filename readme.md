@@ -51,7 +51,12 @@ Pop this in your HTML file:
 
 Install a Bower component:
 ```
-grunt bower-install:jquery
+bower install jquery --save
+```
+
+Call the Grunt task:
+```
+grunt bower-install
 ```
 
 You're in business!
@@ -61,19 +66,8 @@ You're in business!
 <!-- endbower -->
 ```
 
-If you want to uninstall a Bower component:
-```
-grunt bower-uninstall:jquery
-```
-
 ## Behind the Scenes
-This plug-in decorates the native Bower commands. So, by saying `grunt bower-install:jquery`, you are really saying:
-
-```
-bower install jquery --save
-```
-
-After the Bower command finishes executing, this plug-in will take a look at all of the components you have, and determine the best order to inject your scripts in to your HTML file.
+This plug-in will take a look at all of the components you have, and determine the best order to inject your scripts in to your HTML file.
 
 Putting script tags that aren't managed by `grunt-bower-install` is not advised, as anything between `<!-- bower -->` and `<!-- endbower -->` will be overwritten with each command.
 
