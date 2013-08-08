@@ -64,7 +64,7 @@ grunt bower-install
 
 You're in business!
 ```html
-<!-- bower -->
+<!-- bower:js -->
 <script src="bower_components/jquery/jquery.js"></script>
 <!-- endbower -->
 ```
@@ -72,7 +72,7 @@ You're in business!
 ## Behind the Scenes
 This plug-in uses [wiredep](https://github.com/stephenplusplus/wiredep), which takes a look at all of the components you have, then determines the best order to inject your scripts in to your HTML file.
 
-Putting script tags that aren't managed by `grunt-bower-install` is not advised, as anything between `<!-- bower -->` and `<!-- endbower -->` will be overwritten with each command.
+Putting script tags that aren't managed by `grunt-bower-install` is not advised, as anything between `<!-- bower:js -->` and `<!-- endbower -->` will be overwritten with each command.
 
 ## Examples
 A simple sample apple:
