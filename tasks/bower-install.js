@@ -30,14 +30,15 @@ var findBowerJSON = function () {
 
 
 module.exports = function (grunt) {
-  grunt.registerTask('bower-install', 'Inject all components in your HTML file.', function () {
-    this.requiresConfig(['bower-install', 'html']);
+  grunt.registerMultiTask('bower-install', 'Inject all components in your HTML file.', function () {
+
+    this.requiresConfig(['bower-install', this.target, 'html']);
 
     wiredep({
       directory: grunt.file.readJSON('.bowerrc').directory || 'bower_components',
       bowerJson: findBowerJSON(),
-      ignorePath: grunt.config.data['bower-install'].ignorePath,
-      htmlFile: grunt.config.data['bower-install'].html
+      ignorePath: this.data.ignorePath,
+      htmlFile: this.data.html
     });
   });
 };

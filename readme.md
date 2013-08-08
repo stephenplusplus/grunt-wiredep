@@ -32,14 +32,17 @@ grunt.loadNpmTasks('grunt-bower-install');
 Create a config block within your Gruntfile:
 ```js
 'bower-install': {
-  // Point to the html file that should be updated
-  // when you run `grunt bower-install`
-  html: 'app/index.html',
 
-  // Optional:
-  // If your scripts shouldn't contain a certain
-  // portion of a url, it can be excluded
-  ignorePath: 'app/'
+  target: {
+    // Point to the html file that should be updated
+    // when you run `grunt bower-install`
+    html: 'app/index.html',
+
+    // Optional:
+    // If your scripts shouldn't contain a certain
+    // portion of a url, it can be excluded
+    ignorePath: 'app/'
+  }
 }
 ```
 
