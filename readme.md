@@ -34,6 +34,7 @@ Create a config block within your Gruntfile:
 'bower-install': {
 
   target: {
+
     // Point to the html file that should be updated
     // when you run `grunt bower-install`
     html: 'app/index.html',
