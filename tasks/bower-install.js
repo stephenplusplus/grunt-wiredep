@@ -29,13 +29,30 @@ var findBowerJSON = function () {
 };
 
 
+/**
+ * Try to use a `.bowerrc` file to find a custom directory. If it doesn't exist,
+ * we're going with "bower_components".
+ *
+ * @ return {string} the path to the bower component directory
+ */
+var findBowerDirectory = function () {
+  var directory = 'bower_components';
+
+  if (grunt.file.isFile('.bowerrc')) {
+    directory = grunt.file.readJSON('.bowerrc').directory || 'bower_components';
+  }
+
+  return directory;
+};
+
+
 module.exports = function (grunt) {
   grunt.registerMultiTask('bower-install', 'Inject all components in your HTML file.', function () {
 
     this.requiresConfig(['bower-install', this.target, 'html']);
 
     wiredep({
-      directory: grunt.file.readJSON('.bowerrc').directory || 'bower_components',
+      directory: findBowerDirectory(),
       bowerJson: findBowerJSON(),
       ignorePath: this.data.ignorePath,
       htmlFile: this.data.html
