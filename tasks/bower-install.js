@@ -17,9 +17,10 @@ var wiredep = require('wiredep');
  * @return {object} bower's .json configuration object
  */
 var findBowerJSON = function () {
+
   var bowerJSON;
 
-  grunt.util._.each(['bower.json', 'component.json'], function (configFile) {
+  ['bower.json', 'component.json'].forEach(function (configFile) {
     if (!bowerJSON && grunt.file.isFile(configFile)) {
       bowerJSON = grunt.file.readJSON(configFile);
     }
@@ -36,10 +37,36 @@ var findBowerJSON = function () {
  * @ return {string} the path to the bower component directory
  */
 var findBowerDirectory = function () {
-  var directory = 'bower_components';
+
+  var directory;
 
   if (grunt.file.isFile('.bowerrc')) {
-    directory = grunt.file.readJSON('.bowerrc').directory || 'bower_components';
+    directory = grunt.file.readJSON('.bowerrc').directory;
+  }
+
+  if (!directory) {
+    ['bower_components', 'components'].forEach(function (dir) {
+      if (!directory && grunt.file.isDir(dir)) {
+        directory = dir;
+      }
+    });
+  }
+
+  if (!directory || !grunt.file.isDir(directory)) {
+    console.log(
+      'Cannot find where you keep your Bower packages.'
+      + '\n'
+      + '\nWe tried looking for a `.bowerrc` file, but couldn\'t find a custom'
+      + '\n`directory` property defined. We then tried `bower_components`, but'
+      + '\nit looks like that doesn\'t exist either. As a last resort, we tried'
+      + '\nthe pre-1.0 `components` directory, but that also couldn\'t be found.'
+      + '\n'
+      + '\nUnfortunately, we can\'t proceed without knowing where the Bower'
+      + '\npackages you have installed are.'
+      + '\n'
+    );
+
+    grunt.fail.fatal('No Bower components found.');
   }
 
   return directory;
@@ -47,6 +74,7 @@ var findBowerDirectory = function () {
 
 
 module.exports = function (grunt) {
+
   grunt.registerMultiTask('bower-install', 'Inject all components in your HTML file.', function () {
 
     this.requiresConfig(['bower-install', this.target, 'html']);
