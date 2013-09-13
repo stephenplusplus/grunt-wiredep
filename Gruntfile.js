@@ -3,7 +3,9 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     'bower-install': {
-      html: 'index.html'
+      app: {
+        html: 'index.html'
+      }
     }
   });
 };

@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>sample apple.</title>
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -47,7 +50,7 @@
         To use <a href="http://bower.io">Bower</a> for dependencies, include a comment block in your HTML file:
       </p>
       <pre>
-  &lt!-- bower -->
+  &lt!-- bower:js -->
   &lt!-- endbower -->
       </pre>
 
@@ -70,9 +73,13 @@
         Flip over to your Gruntfile, and add in the following:
       </p>
       <pre>
+  grunt.loadNpmTasks('grunt-bower-install');
+
   grunt.initConfig({
     <code>'bower-install': {</code>
-      html: 'index.html' // point to your HTML file.
+      target: {
+        html: 'index.html' // point to your HTML file.
+      }
     <code>}</code>
   });
       </pre>
@@ -85,10 +92,16 @@
         Let's say your app needed jQuery to help it reach maximum awesomeness.
       </p>
       <p>
-        Just go over to your terminal, and slap:
+        Install jQuery as usual... with Bower.
       </p>
       <pre>
-  grunt <code>bower-install:jquery</code>
+  bower install jquery --save
+      </pre>
+      <p>
+        Then just go over to your terminal, and slap:
+      </p>
+      <pre>
+  grunt <code>bower-install</code>
       </pre>
 
 
@@ -99,7 +112,7 @@
         Go check out your HTML file. It should look like:
       </p>
       <pre>
-  &lt;!-- bower -->
+  &lt;!-- bower:js -->
   &lt;script src="<code>bower_components/jquery/jquery.js</code>">&lt;/script>
   &lt;!-- endbower -->
       </pre>
@@ -116,7 +129,9 @@
   <a href="https://github.com/stephenplusplus/grunt-bower-install">
     <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub">
   </a>
-  <!-- bower -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <!-- endbower -->
 </body>
 </html>

@@ -1,8 +1,9 @@
 {
   "name": "grunt-bower-install-getting-started",
+  "private": true,
   "version": "0.0.0",
-  "dependencies": {},
   "devDependencies": {
-    "grunt-bower-install": "~0.1.6"
+    "grunt": "~0.4.0",
+    "grunt-bower-install": "~0.5.0"
   }
 }
