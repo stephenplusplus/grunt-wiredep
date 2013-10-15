@@ -40,9 +40,22 @@ Create a config block within your Gruntfile:
     html: 'app/index.html',
 
     // Optional:
-    // If your scripts shouldn't contain a certain
+
+    // If your file paths shouldn't contain a certain
     // portion of a url, it can be excluded
-    ignorePath: 'app/'
+    ignorePath: 'app/',
+
+    // Customize how your stylesheets are included on
+    // your page.
+    //
+    //   default: '<link rel="stylesheet" href="{{filePath}}" />'
+    cssPattern: '<link href="{{filePath}}" rel="stylesheet">',
+
+    // Customize how your <script>s are included into
+    // your HTML file.
+    //
+    //   default: '<script src="{{filePath}}"></script>'
+    jsPattern: '<script type="text/javascript" src="{{filePath}}"></script>'
   }
 }
 ```
