@@ -84,8 +84,8 @@ module.exports = function (grunt) {
       bowerJson: findBowerJSON(),
       ignorePath: this.data.ignorePath,
       htmlFile: this.data.html,
-      cssPath: this.data.css,
-      jsPath: this.data.js
+      cssPattern: this.data.cssPattern,
+      jsPattern: this.data.jsPattern
     });
   });
 };
