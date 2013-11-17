@@ -37,9 +37,16 @@ Create a config block within your Gruntfile:
 
     // Point to the html file that should be updated
     // when you run `grunt bower-install`
+    //
+    // Relative to `cwd`, if present.
     html: 'app/index.html',
 
     // Optional:
+
+    // The directory from which we look for .bowerrc and bower.json
+    //
+    //   default: .
+    cwd: '/work',
 
     // If your file paths shouldn't contain a certain
     // portion of a url, it can be excluded

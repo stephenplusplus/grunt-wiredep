@@ -8,6 +8,8 @@
 
 var grunt = require('grunt');
 var wiredep = require('wiredep');
+var bowerConfig = require('bower-config');
+var path = require('path');
 
 
 /**
@@ -16,11 +18,14 @@ var wiredep = require('wiredep');
  *
  * @return {object} bower's .json configuration object
  */
-var findBowerJSON = function () {
+var findBowerJSON = function (cwd) {
 
   var bowerJSON;
 
   ['bower.json', 'component.json'].forEach(function (configFile) {
+    if (cwd) {
+      configFile = path.join(cwd, configFile);
+    }
     if (!bowerJSON && grunt.file.isFile(configFile)) {
       bowerJSON = grunt.file.readJSON(configFile);
     }
@@ -32,39 +37,35 @@ var findBowerJSON = function () {
 
 /**
  * Try to use a `.bowerrc` file to find a custom directory. If it doesn't exist,
- * we're going with "bower_components".
+ * we're going with the Bower config default -- "bower_components".
+ * 
+ * @see http://goo.gl/ptecGW
  *
  * @ return {string} the path to the bower component directory
  */
-var findBowerDirectory = function () {
+var findBowerDirectory = function (cwd) {
 
   var directory;
 
-  if (grunt.file.isFile('.bowerrc')) {
-    directory = grunt.file.readJSON('.bowerrc').directory;
-  }
+  // we want to pass `cwd` to bower-config so that it can properly find `.bowerrc`
+  // relative to `cwd` and not the current dir in which the job runs
+  var config = bowerConfig.read(cwd);
 
-  if (!directory) {
-    ['bower_components', 'components'].forEach(function (dir) {
-      if (!directory && grunt.file.isDir(dir)) {
-        directory = dir;
-      }
-    });
-  }
+  // bower-config only returns the name of the directory so we must join paths
+  directory = path.join(cwd, config.directory);
 
   if (!directory || !grunt.file.isDir(directory)) {
-    console.log(
-      'Cannot find where you keep your Bower packages.'
-      + '\n'
-      + '\nWe tried looking for a `.bowerrc` file, but couldn\'t find a custom'
-      + '\n`directory` property defined. We then tried `bower_components`, but'
-      + '\nit looks like that doesn\'t exist either. As a last resort, we tried'
-      + '\nthe pre-1.0 `components` directory, but that also couldn\'t be found.'
-      + '\n'
-      + '\nUnfortunately, we can\'t proceed without knowing where the Bower'
-      + '\npackages you have installed are.'
-      + '\n'
-    );
+    console.log([
+      'Cannot find where you keep your Bower packages.',
+      '',
+      'We tried looking for a `.bowerrc` file, but couldn\'t find a custom',
+      '`directory` property defined. We then tried `bower_components`, but',
+      'it looks like that doesn\'t exist either.',
+      '',
+      'Unfortunately, we can\'t proceed without knowing where the Bower',
+      'packages you have installed are.',
+      ''
+    ].join('\n'));
 
     grunt.fail.fatal('No Bower components found.');
   }
@@ -79,9 +80,15 @@ module.exports = function (grunt) {
 
     this.requiresConfig(['bower-install', this.target, 'html']);
 
+    var options = this.options({
+      cwd: '.'
+    });
+    // override global setting with task setting
+    options.cwd = this.data.cwd || options.cwd;
+
     wiredep({
-      directory: findBowerDirectory(),
-      bowerJson: findBowerJSON(),
+      directory: findBowerDirectory(options.cwd),
+      bowerJson: findBowerJSON(options.cwd),
       ignorePath: this.data.ignorePath,
       htmlFile: this.data.html,
       cssPattern: this.data.cssPattern,
