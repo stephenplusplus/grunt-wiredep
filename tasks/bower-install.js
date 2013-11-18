@@ -87,6 +87,7 @@ module.exports = function (grunt) {
     options.cwd = this.data.cwd || options.cwd;
 
     wiredep({
+      cwd: options.cwd,
       directory: findBowerDirectory(options.cwd),
       bowerJson: findBowerJSON(options.cwd),
       ignorePath: this.data.ignorePath,
