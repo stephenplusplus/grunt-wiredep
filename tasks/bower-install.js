@@ -85,7 +85,8 @@ module.exports = function (grunt) {
       ignorePath: this.data.ignorePath,
       htmlFile: this.data.html,
       cssPattern: this.data.cssPattern,
-      jsPattern: this.data.jsPattern
+      jsPattern: this.data.jsPattern,
+      exclude: this.data.exclude
     });
   });
 };
