@@ -55,7 +55,13 @@ Create a config block within your Gruntfile:
     // your HTML file.
     //
     //   default: '<script src="{{filePath}}"></script>'
-    jsPattern: '<script type="text/javascript" src="{{filePath}}"></script>'
+    jsPattern: '<script type="text/javascript" src="{{filePath}}"></script>',
+
+    // An array of strings or regular expressions to
+    // exclude from your HTML file.
+    //
+    //   default: [],
+    exclude: [/jquery/, 'bower_components/modernizr/modernizr.js']
   }
 }
 ```
