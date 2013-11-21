@@ -47,6 +47,6 @@
     "grunt-contrib-watch": "~0.2.0"
   },
   "dependencies": {
-    "wiredep": "~0.3.0"
+    "wiredep": "~0.4.0"
   }
 }
