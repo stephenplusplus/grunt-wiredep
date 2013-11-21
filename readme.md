@@ -40,9 +40,12 @@ Create a config block within your Gruntfile:
     html: 'app/index.html',
 
     // Optional:
+    // ---------
 
     // If your file paths shouldn't contain a certain
     // portion of a url, it can be excluded
+    //
+    //   default: ''
     ignorePath: 'app/',
 
     // Customize how your stylesheets are included on
