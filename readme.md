@@ -39,6 +39,7 @@ Create a config block within your Gruntfile:
     // when you run `grunt bower-install`
     html: 'app/index.html',
 
+    // ---------
     // Optional:
     // ---------
 
@@ -64,7 +65,13 @@ Create a config block within your Gruntfile:
     // exclude from your HTML file.
     //
     //   default: [],
-    exclude: [/jquery/, 'bower_components/modernizr/modernizr.js']
+    exclude: [/jquery/, 'bower_components/modernizr/modernizr.js'],
+
+    // The directory from which we look for .bowerrc
+    // and bower.json.
+    //
+    //   default: '.'
+    cwd: 'module'
   }
 }
 ```
