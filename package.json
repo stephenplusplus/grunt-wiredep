@@ -19,13 +19,7 @@
     "component",
     "postinstall"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/stephenplusplus/grunt-bower-install.git"
-  },
-  "bugs": {
-    "url": "https://github.com/stephenplusplus/grunt-bower-install/issues"
-  },
+  "repository": "stephenplusplus/grunt-bower-install",
   "licenses": [
     {
       "type": "MIT",
@@ -49,7 +43,7 @@
     "grunt-contrib-watch": "~0.2.0"
   },
   "dependencies": {
-    "wiredep": "~0.4.0",
+    "wiredep": "~0.5.0",
     "bower-config": "~0.5.0"
   }
 }

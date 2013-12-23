@@ -19,7 +19,6 @@ var bowerConfig = require('bower-config');
  * @return {object} bower's .json configuration object
  */
 var findBowerJSON = function (cwd) {
-
   var bowerJSON;
 
   ['bower.json', 'component.json'].map(function (configFile) {
@@ -41,22 +40,21 @@ var findBowerJSON = function (cwd) {
  * @ return {string} the path to the bower component directory
  */
 var findBowerDirectory = function (cwd) {
-
   var config = bowerConfig.read(cwd);
   var directory = path.join(cwd, config.directory);
 
   if (!directory || !grunt.file.isDir(directory)) {
     console.log(
-      'Cannot find where you keep your Bower packages.'
-      + '\n'
-      + '\nWe tried looking for a `.bowerrc` file, but couldn\'t find a custom'
-      + '\n`directory` property defined. We then tried `bower_components`, but'
-      + '\nit looks like that doesn\'t exist either. As a last resort, we tried'
-      + '\nthe pre-1.0 `components` directory, but that also couldn\'t be found.'
-      + '\n'
-      + '\nUnfortunately, we can\'t proceed without knowing where the Bower'
-      + '\npackages you have installed are.'
-      + '\n'
+      'Cannot find where you keep your Bower packages.' +
+      '\n' +
+      '\nWe tried looking for a `.bowerrc` file, but couldn\'t find a custom' +
+      '\n`directory` property defined. We then tried `bower_components`, but' +
+      '\nit looks like that doesn\'t exist either. As a last resort, we tried' +
+      '\nthe pre-1.0 `components` directory, but that also couldn\'t be found.' +
+      '\n' +
+      '\nUnfortunately, we can\'t proceed without knowing where the Bower' +
+      '\npackages you have installed are.' +
+      '\n'
     );
 
     grunt.fail.fatal('No Bower components found.');
@@ -67,21 +65,18 @@ var findBowerDirectory = function (cwd) {
 
 
 module.exports = function (grunt) {
-
   grunt.registerMultiTask('bower-install', 'Inject all components in your HTML file.', function () {
-
-    this.requiresConfig(['bower-install', this.target, 'html']);
+    this.requiresConfig(['bower-install', this.target, 'src']);
 
     var cwd = this.data.cwd || '.';
 
     wiredep({
       directory: findBowerDirectory(cwd),
       bowerJson: findBowerJSON(cwd),
+      src: this.data.src,
+      exclude: this.data.exclude,
       ignorePath: this.data.ignorePath,
-      htmlFile: this.data.html,
-      cssPattern: this.data.cssPattern,
-      jsPattern: this.data.jsPattern,
-      exclude: this.data.exclude
+      fileTypes: this.data.fileTypes
     });
   });
 };
