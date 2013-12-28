@@ -20,9 +20,10 @@ var bowerConfig = require('bower-config');
  */
 var findBowerJSON = function (cwd) {
   var bowerJSON;
+  var config = bowerConfig.read(cwd);
 
   ['bower.json', 'component.json'].map(function (configFile) {
-    return path.join(cwd, configFile);
+    return path.join(config.cwd, configFile);
   }).forEach(function (configFile) {
     if (!bowerJSON && grunt.file.isFile(configFile)) {
       bowerJSON = grunt.file.readJSON(configFile);
@@ -41,7 +42,7 @@ var findBowerJSON = function (cwd) {
  */
 var findBowerDirectory = function (cwd) {
   var config = bowerConfig.read(cwd);
-  var directory = path.join(cwd, config.directory);
+  var directory = path.join(config.cwd, config.directory);
 
   if (!directory || !grunt.file.isDir(directory)) {
     console.log(
