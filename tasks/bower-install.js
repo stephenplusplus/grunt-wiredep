@@ -74,7 +74,7 @@ module.exports = function (grunt) {
     wiredep({
       directory: findBowerDirectory(cwd),
       bowerJson: findBowerJSON(cwd),
-      src: this.data.src,
+      src: grunt.file.expand(this.data.src),
       exclude: this.data.exclude,
       ignorePath: this.data.ignorePath,
       fileTypes: this.data.fileTypes

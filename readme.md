@@ -37,7 +37,7 @@ Create a config block within your Gruntfile:
 
     // Point to the files that should be updated when
     // you run `grunt bower-install`
-    src: ['app/index.html'],
+    src: ['app/index.html', 'app/views/**/*.html'],
 
     // Optional:
     // ---------
