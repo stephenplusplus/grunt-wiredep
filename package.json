@@ -14,6 +14,7 @@
     "grunt",
     "bower",
     "package manager",
+    "wiredep",
     "dependency management",
     "javascript dependencies",
     "component",
@@ -31,18 +32,11 @@
     "node": ">=0.8.0",
     "npm": ">=1.2.10"
   },
-  "scripts": {
-    "test": "grunt nodeunit"
-  },
   "peerDependencies": {
     "grunt": "~0.4.0"
   },
-  "devDependencies": {
-    "grunt-contrib-jshint": "~0.1.1",
-    "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt-contrib-watch": "~0.2.0"
-  },
   "dependencies": {
+    "grunt": "~0.4.0",
     "wiredep": "~0.5.0",
     "bower-config": "~0.5.0"
   }
