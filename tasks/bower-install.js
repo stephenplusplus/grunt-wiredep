@@ -66,8 +66,8 @@ var findBowerDirectory = function (cwd) {
 
 
 module.exports = function (grunt) {
-  grunt.registerMultiTask('bower-install', 'Inject all components in your HTML file.', function () {
-    this.requiresConfig(['bower-install', this.target, 'src']);
+  grunt.registerMultiTask('bowerInstall', 'Inject all components in your HTML file.', function () {
+    this.requiresConfig(['bowerInstall', this.target, 'src']);
 
     var cwd = this.data.cwd || '.';
 
