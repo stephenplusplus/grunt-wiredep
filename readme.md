@@ -42,9 +42,11 @@ Create a config block within your Gruntfile:
     // Optional:
     // ---------
     cwd: '',
-    ignorePath: '',
+    dependencies: Boolean (default: true),
+    devDependencies: Boolean (default: false),
     exclude: [],
-    fileTypes: {}
+    fileTypes: {},
+    ignorePath: ''
   }
 }
 ```

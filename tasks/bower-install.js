@@ -72,12 +72,14 @@ module.exports = function (grunt) {
     var cwd = this.data.cwd || '.';
 
     wiredep({
-      directory: findBowerDirectory(cwd),
       bowerJson: findBowerJSON(cwd),
-      src: grunt.file.expand(this.data.src),
+      dependencies: this.data.dependencies === false ? false : true,
+      devDependencies: this.data.devDependencies === true ? true : false,
+      directory: findBowerDirectory(cwd),
       exclude: this.data.exclude,
+      fileTypes: this.data.fileTypes,
       ignorePath: this.data.ignorePath,
-      fileTypes: this.data.fileTypes
+      src: grunt.file.expand(this.data.src)
     });
   });
 };
