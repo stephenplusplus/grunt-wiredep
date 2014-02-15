@@ -21,7 +21,7 @@ _**do note**: Bower is still a young little birdy, so things are changing rapidl
 
 To install the module:
 ```
-npm install grunt-bower-install --save-dev
+npm install --save-dev grunt-bower-install
 ```
 
 Include the task in your Gruntfile:
@@ -37,7 +37,12 @@ Create a config block within your Gruntfile:
 
     // Point to the files that should be updated when
     // you run `grunt bower-install`
-    src: ['app/index.html', 'app/views/**/*.html'],
+    src: [
+      'app/views/**/*.html',   // .html support...
+      'app/views/**/*.jade',   // .jade support...
+      'app/styles/main.scss',  // .scss & .sass support...
+      'app/config.yml'         // and .yml & .yaml support out of the box!
+    ],
 
     // Optional:
     // ---------
