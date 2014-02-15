@@ -31,7 +31,7 @@ grunt.loadNpmTasks('grunt-bower-install');
 
 Create a config block within your Gruntfile:
 ```js
-'bower-install': {
+bowerInstall: {
 
   target: {
 
@@ -72,7 +72,7 @@ bower install jquery --save
 
 Call the Grunt task:
 ```
-grunt bower-install
+grunt bowerInstall
 ```
 
 You're in business!
