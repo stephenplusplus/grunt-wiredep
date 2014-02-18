@@ -76,9 +76,11 @@
   grunt.loadNpmTasks('grunt-bower-install');
 
   grunt.initConfig({
-    <code>'bower-install': {</code>
+    <code>'bowerInstall': {</code>
       target: {
-        html: 'index.html' // point to your HTML file.
+        src: [
+          'index.html' // point to your HTML file.
+        ]
       }
     <code>}</code>
   });
@@ -101,7 +103,7 @@
         Then just go over to your terminal, and slap:
       </p>
       <pre>
-  grunt <code>bower-install</code>
+  grunt <code>bowerInstall</code>
       </pre>
 
 
