@@ -47,8 +47,8 @@ bowerInstall: {
     // Optional:
     // ---------
     cwd: '',
-    dependencies: Boolean (default: true),
-    devDependencies: Boolean (default: false),
+    dependencies: true,
+    devDependencies: false,
     exclude: [],
     fileTypes: {},
     ignorePath: ''
@@ -95,5 +95,5 @@ A simple sample apple:
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## License
-Copyright (c) 2013 Stephen Sawchuk
+Copyright (c) 2014 Stephen Sawchuk
 Licensed under the MIT license.
