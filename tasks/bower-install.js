@@ -78,6 +78,7 @@ module.exports = function (grunt) {
       directory: findBowerDirectory(cwd),
       exclude: this.data.exclude,
       fileTypes: this.data.fileTypes,
+      overrideRoot: this.data.overrideRoot,
       ignorePath: this.data.ignorePath,
       src: grunt.file.expand(this.data.src)
     });
