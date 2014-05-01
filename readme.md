@@ -51,7 +51,8 @@ bowerInstall: {
     devDependencies: false,
     exclude: [],
     fileTypes: {},
-    ignorePath: ''
+    ignorePath: '',
+    overrides: {}
   }
 }
 ```
