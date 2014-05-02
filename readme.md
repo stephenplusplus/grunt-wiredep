@@ -1,6 +1,8 @@
+> -
 # grunt-bower-install
-
-> Inject your Bower dependencies right into your HTML from Grunt.
+*Inject your Bower dependencies right into your HTML from Grunt.*
+>
+> -
 
 ## What is this?
 [Grunt](http://gruntjs.com) is great.
