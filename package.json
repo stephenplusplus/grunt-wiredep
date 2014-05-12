@@ -13,10 +13,9 @@
     "html",
     "grunt",
     "bower",
-    "package manager",
+    "package",
     "wiredep",
-    "dependency management",
-    "javascript dependencies",
+    "dependency",
     "component",
     "postinstall"
   ],
@@ -36,7 +35,7 @@
     "grunt": "~0.4.0"
   },
   "dependencies": {
-    "wiredep": "~1.4.0",
+    "wiredep": "~1.5.0",
     "bower-config": "~0.5.0"
   }
 }
