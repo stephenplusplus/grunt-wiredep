@@ -1,12 +1,10 @@
-module.exports = function(grunt) {
-  grunt.loadNpmTasks('grunt-bower-install');
+module.exports = function (grunt) {
+  grunt.loadNpmTasks('grunt-wiredep');
 
   grunt.initConfig({
     bowerInstall: {
-      target: {
-        src: [
-          'index.html'
-        ]
+      app: {
+        src: 'index.html'
       }
     }
   });
