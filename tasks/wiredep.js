@@ -4,7 +4,20 @@ var bowerConfig = require('bower-config');
 var fs = require('fs');
 var path = require('path');
 
-function bowerInstall(grunt) {
+function wiredep(grunt) {
+  grunt.registerMultiTask('wiredep', 'Inject all components in your HTML file.', function () {
+    this.requiresConfig(['wiredep', this.target, 'src']);
+
+    var cwd = this.data.cwd || '.';
+    var options = this.data;
+
+    options.bowerJson = _findBowerJSON(cwd);
+    options.directory = _findBowerDirectory(cwd);
+    options.src = grunt.file.expand(options.src);
+
+    require('wiredep')(options);
+  });
+
   function _findBowerJSON(cwd) {
     var bowerJSON;
     var config = bowerConfig.read(cwd);
@@ -19,7 +32,6 @@ function bowerInstall(grunt) {
 
     return bowerJSON;
   }
-
 
   function _findBowerDirectory(cwd) {
     var config = bowerConfig.read(cwd);
@@ -44,19 +56,6 @@ function bowerInstall(grunt) {
 
     return directory;
   }
-
-  grunt.registerMultiTask('bowerInstall', 'Inject all components in your HTML file.', function () {
-    this.requiresConfig(['bowerInstall', this.target, 'src']);
-
-    var cwd = this.data.cwd || '.';
-    var options = this.data;
-
-    options.bowerJson = _findBowerJSON(cwd);
-    options.directory = _findBowerDirectory(cwd);
-    options.src = grunt.file.expand(options.src);
-
-    require('wiredep')(options);
-  });
 }
 
-module.exports = bowerInstall;
+module.exports = wiredep;

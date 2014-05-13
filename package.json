@@ -1,8 +1,8 @@
 {
-  "name": "grunt-bower-install",
+  "name": "grunt-wiredep",
   "description": "Inject your Bower dependencies right into your HTML from Grunt.",
   "version": "1.6.0",
-  "homepage": "http://stephenplusplus.github.io/grunt-bower-install",
+  "homepage": "http://stephenplusplus.github.io/grunt-wiredep",
   "author": {
     "name": "Stephen Sawchuk",
     "email": "sawchuk@gmail.com",
@@ -19,11 +19,11 @@
     "component",
     "postinstall"
   ],
-  "repository": "stephenplusplus/grunt-bower-install",
+  "repository": "stephenplusplus/grunt-wiredep",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/stephenplusplus/grunt-bower-install/blob/master/LICENSE-MIT"
+      "url": "https://github.com/stephenplusplus/grunt-wiredep/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
