@@ -33,7 +33,7 @@ grunt.loadNpmTasks('grunt-wiredep');
 
 Create a config block within your Gruntfile:
 ```js
-bowerInstall: {
+wiredep: {
 
   target: {
 
@@ -75,7 +75,7 @@ bower install jquery --save
 
 Call the Grunt task:
 ```
-grunt bowerInstall
+grunt wiredep
 ```
 
 You're in business!
