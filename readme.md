@@ -1,6 +1,6 @@
 > -
 # grunt-wiredep
-*Inject your Bower dependencies right into your HTML from Grunt.*
+*Inject Bower packages into your source code with Grunt.*
 >
 > -
 
