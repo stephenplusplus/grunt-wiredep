@@ -61,9 +61,8 @@ wiredep: {
 }
 ```
 
-*See [wiredep's readme](http://github.com/stephenplusplus/wiredep) for more options of customization, such as other file types, regex patterns, exclusions, and more.*
-
-*Options can be specified on both task and target level. See [grunt documentation](http://gruntjs.com/configuring-tasks#options) for more details on how this works.
+*See [wiredep's readme](http://github.com/stephenplusplus/wiredep) for more options of customization, such as other file types, regex patterns, exclusions, and more. 
+Options can be specified on both task and target level. See [grunt documentation](http://gruntjs.com/configuring-tasks#options) for more details on how this works.*
 
 For JavaScript dependencies, pop this in your HTML file:
 ```html
