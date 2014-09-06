@@ -1,7 +1,7 @@
 {
   "name": "grunt-wiredep",
   "description": "Inject your Bower dependencies right into your HTML from Grunt.",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "homepage": "http://stephenplusplus.github.io/grunt-wiredep",
   "author": {
     "name": "Stephen Sawchuk",
