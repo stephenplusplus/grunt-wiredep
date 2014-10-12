@@ -35,7 +35,7 @@ Create a config block within your Gruntfile:
 ```js
 wiredep: {
 
-  target: {
+  task: {
 
     // Point to the files that should be updated when
     // you run `grunt wiredep`
@@ -45,24 +45,20 @@ wiredep: {
       'app/styles/main.scss',  // .scss & .sass support...
       'app/config.yml'         // and .yml & .yaml support out of the box!
     ],
+    
+    options: {
+      // See wiredep's configuration documentation for the options
+      // you may pass:
 
-    // Optional:
-    // ---------
-	options: {
-      cwd: '',
-      dependencies: true,
-      devDependencies: false,
-      exclude: [],
-      fileTypes: {},
-      ignorePath: '',
-      overrides: {}
-	}
+      // https://github.com/taptapship/wiredep#configuration
+    }
   }
 }
 ```
 
-*See [wiredep's readme](http://github.com/stephenplusplus/wiredep) for more options of customization, such as other file types, regex patterns, exclusions, and more. 
-Options can be specified on both task and target level. See [grunt documentation](http://gruntjs.com/configuring-tasks#options) for more details on how this works.*
+See [wiredep's readme](http://github.com/taptapship/wiredep#configuration) for more options of customization, such as other file types, regex patterns, exclusions, and more.
+
+Options can be specified on both task and target level. See [grunt documentation](http://gruntjs.com/configuring-tasks#options) for more details on how this works.
 
 For JavaScript dependencies, pop this in your HTML file:
 ```html
