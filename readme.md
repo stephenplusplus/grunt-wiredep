@@ -92,6 +92,10 @@ Putting script tags that aren't managed by `grunt-wiredep` is not advised, as an
 A simple sample apple:
 [website](http://stephenplusplus.github.io/grunt-wiredep) | [github](https://github.com/stephenplusplus/grunt-wiredep/tree/gh-pages)
 
+## Tutorial
+
+A simple [tutorial](http://grunt-tasks.com/grunt-wiredep/) on how to use grunt-wiredep
+
 ## License
 Copyright (c) 2014 Stephen Sawchuk
 Licensed under the MIT license.
