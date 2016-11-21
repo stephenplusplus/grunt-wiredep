@@ -19,6 +19,7 @@
     "component",
     "postinstall"
   ],
+  "main": "tasks/wiredep",
   "repository": "stephenplusplus/grunt-wiredep",
   "licenses": [
     {
